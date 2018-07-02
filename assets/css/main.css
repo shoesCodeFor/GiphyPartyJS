@@ -1,0 +1,31 @@
+@font-face {
+    font-family: Sextan;
+    src: url(fonts/SextanRoman.ttf);
+    font-size: 30px;
+}
+*{
+    font-family: Sextan;
+}
+
+.giphyLogo{
+    max-width: 30%;
+}
+.bg-dark{
+    background-color: #18181a !important;
+}
+
+.navbar-brand{
+    font-size: 3.3vw !important;
+}
+
+.category{
+    font-size: 1.5rem;
+}
+#cat-form{
+    font-size: 1.33rem;
+}
+
+.remove-cat{
+    color: grey;
+    font-size: 1.3rem;
+}
