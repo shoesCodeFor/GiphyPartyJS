@@ -82,8 +82,55 @@ const callGiphy = () =>{
         // Put these in an array
         giphyData = response.data;
         console.log(response);
+        giphyData.forEach(function (element) {
+            console.log(element.slug);
+            buildCard(element);
+        });
     });
 }
+// bitly_gif_url:"https://gph.is/1GNSiAF",
+// bitly_url:"https://gph.is/1GNSiAF",
+// content_url:""
+// embed_url:"https://giphy.com/embed/12ELmx0C4EFKcE",
+// id:"12ELmx0C4EFKcE",
+// images:
+// {fixed_height_still: {…}, original_still: {…}, fixed_width: {…}, fixed_height_small_still: {…}, fixed_height_downsampled: {…}, …}
+// import_datetime:"2015-05-01 18:51:33"
+// is_sticker:
+//     0
+// rating
+//     :
+//     "g"
+// slug
+//     :
+//     "kitten-12ELmx0C4EFKcE"
+// source
+//     :
+//     "https://weheartit.com/entry/63807627"
+// source_post_url
+//     :
+//     "https://weheartit.com/entry/63807627"
+// source_tld
+//     :
+//     "weheartit.com"
+// title
+//     :
+//     "kitten GIF"
+// trending_datetime
+//     :
+//     "1970-01-01 00:00:00"
+// type
+//     :
+//     "gif"
+// url
+//     :
+//     "https://giphy.com/gifs/kitten-12ELmx0C4EFKcE"
+// username
+//     :
+//     ""
+// _score
+//     :
+//     2300034.8
 
 const displayGiphs = idName =>{
 
@@ -92,3 +139,76 @@ const displayGiphs = idName =>{
 const toggleGif = () => {
 
 }
+
+const buildCard = giphyObj =>{
+    let image, title, link;
+
+    // let card = document.createElement('div');
+    // card.setAttribute('class', 'card text-center');
+    // let body = document.createElement('div');
+    // body.setAttribute('class', 'card-body');
+    let col = $('<div>');
+    col.attr({
+       "class":"col-4",
+        "id":giphyObj.slug
+    });
+
+    let card = $('<div>');
+    card.addClass('card text-center');
+
+    let img = $('<img>');
+    img.attr({
+        'src': giphyObj.images['480w_still'].url,
+        'class':'card-img-top',
+        'status':'paused'
+    });
+    card.append(img);
+
+    let cardBody = $('<div>');
+    cardBody.addClass('card-body');
+
+
+    let imageLink = $('<a>');
+    imageLink.attr({
+        'class':'btn btn-primary',
+        'href':giphyObj.url,
+        'target':'_blank'
+    });
+    cardBody.append(imageLink);
+
+    let toggleBtn = $('<button>');
+    toggleBtn.attr({
+        'class':'btn btn-success'
+    });
+    toggleBtn.on('click', function(){
+        let status = img.attr('status');
+        if(status === 'paused'){
+            img.attr({
+                'src':giphyObj.images.downsized.url,
+                'status':'playing'
+            });
+        }
+        else{
+            img.attr({
+                'src': giphyObj.images['480w_still'].url,
+                'status':'paused'
+            });
+        }
+    });
+    cardBody.append(toggleBtn);
+    card.append(cardBody);
+    col.append(card);
+    $('#images').append(col);
+    // let card =
+    //     `<div class="col-4" id="${giphyObj.slug}">
+    //         <div class="card text-center">
+    //             <img class="card-img-top" src="assets/images/luke.jpg" alt="Card image cap">
+    //             <div class="card-body">
+    //             <h5 class="card-title">Luke</h5>
+    //             <a id="LukeAction" href="#userMessage"
+    //             class="btn btn-primary action" onclick="playerSelect('Luke')"
+    //             player="Luke">Select</a>
+    //             </div>
+    //         </div>
+    //     </div>`;
+};
