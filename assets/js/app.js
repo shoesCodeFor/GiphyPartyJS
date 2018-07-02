@@ -183,7 +183,7 @@ const buildCard = giphyObj =>{
     toggleBtn.attr({
         'class':'btn btn-success'
     });
-    toggleBtn.text('Play?');
+    toggleBtn.html('Play <i class="fas fa-play-circle"></i>');
     toggleBtn.on('click', function(){
         let status = img.attr('status');
         if(status === 'paused'){
@@ -191,12 +191,14 @@ const buildCard = giphyObj =>{
                 'src':giphyObj.images.downsized.url,
                 'status':'playing'
             });
+            toggleBtn.html('Pause <i class="far fa-pause-circle"></i>');
         }
         else{
             img.attr({
                 'src': giphyObj.images['480w_still'].url,
                 'status':'paused'
             });
+            toggleBtn.html('Play <i class="fas fa-play-circle"></i>');
         }
     });
     cardBody.append(toggleBtn);
