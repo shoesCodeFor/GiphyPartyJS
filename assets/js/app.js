@@ -39,7 +39,9 @@ const addButton = categoryName => {
     closeBtn.addClass('remove-cat');
     closeBtn.text('X');
     closeBtn.on('click', function(){
+        queryString = queryString.replace(categoryName, '');
         btn.remove();
+        callGiphy();
     });
     btn.append(closeBtn);
     btn.on('click', function (){
@@ -169,6 +171,7 @@ const buildCard = giphyObj =>{
 
 
     let imageLink = $('<a>');
+    imageLink.text('Open in Giphy');
     imageLink.attr({
         'class':'btn btn-primary',
         'href':giphyObj.url,
@@ -180,6 +183,7 @@ const buildCard = giphyObj =>{
     toggleBtn.attr({
         'class':'btn btn-success'
     });
+    toggleBtn.text('Play?');
     toggleBtn.on('click', function(){
         let status = img.attr('status');
         if(status === 'paused'){
@@ -198,7 +202,7 @@ const buildCard = giphyObj =>{
     cardBody.append(toggleBtn);
     card.append(cardBody);
     col.append(card);
-    $('#images').append(col);
+    $('#images').prepend(col);
     // let card =
     //     `<div class="col-4" id="${giphyObj.slug}">
     //         <div class="card text-center">
